@@ -1,19 +1,50 @@
+// import axios from "axios";
+// import config from "../config/config";
+
+// const baseApiUrl = "https://node-20240823.vercel.app";
+
+
+// const getProducts = async () => {
+//   const response = await axios.get(`${baseApiUrl}/api/products`);
+
+
+//   return response;
+// };
+// const getProductsById = async (id) => {
+//   const response = await axios.get(`${baseApiUrl}/api/products/${id}`);
+
+
+//   return response;
+// };
+// export { getProducts ,getProductsById };
+
+
 import axios from "axios";
-import config from "../config/config";
+import Config from "../config/config"; // Adjust path based on your structure
 
-const baseApiUrl = "https://node-20240823.vercel.app";
+const apiClient = axios.create({
+    baseURL: Config.baseApiUrl,
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
 
-
-const getProducts = async () => {
-  const response = await axios.get(`${baseApiUrl}/api/products`);
-
-
-  return response;
+// Get all products
+export const getProducts = async () => {
+    try {
+        const response = await apiClient.get("/products/");
+        return response; // Axios returns { data, status, headers, etc. }
+    } catch (error) {
+        throw error; // Let the caller handle the error
+    }
 };
-const getProductsById = async (id) => {
-  const response = await axios.get(`${baseApiUrl}/api/products/${id}`);
 
-
-  return response;
+// Get product by ID
+export const getProductsById = async (id) => {
+    try {
+        const response = await apiClient.get(`/products/${id}`);
+        return response;
+    } catch (error) {
+        throw error;
+    }
 };
-export { getProducts ,getProductsById };

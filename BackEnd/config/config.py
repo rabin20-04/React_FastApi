@@ -16,11 +16,14 @@ class Settings(BaseSettings):
 
     @validator("ALLOWED_ORIGINS", pre=True)
     def parse_allowed_origins(cls, v):
-        print(f"Debug: Raw ALLOWED_ORIGINS value from env: {v}, type: {type(v)}")
+        print(f"Debug: Raw ALLOWED_ORIGINS value from env: '{v}', type: {type(v)}")
         if isinstance(v, str):
-            result = [item.strip() for item in v.split(",") if item.strip()]
-            print(f"Debug: Parsed ALLOWED_ORIGINS: {result}")
-            return result
+            if v.strip():  # Ensure the string is not empty after trimming
+                result = [item.strip() for item in v.split(",") if item.strip()]
+                print(f"Debug: Parsed ALLOWED_ORIGINS: {result}")
+                return result
+            else:
+                raise ValueError("ALLOWED_ORIGINS cannot be empty")
         elif isinstance(v, list):
             return v
         return v
