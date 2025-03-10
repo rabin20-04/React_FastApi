@@ -1,37 +1,55 @@
-from fastapi import FastAPI, Depends 
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-from database.database import Base, engine, get_db
+from fastapi.middleware.cors import CORSMiddleware
+from config.config import settings
+from database.database import get_db, init_db
 from schemas.product import Product, ProductCreate
 from crud.product import get_products, get_product, create_product
-from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+app = FastAPI(
+    title=settings.APP_NAME,
+    docs_url="/docs" if settings.ENVIRONMENT != "production" else None,
+    redoc_url=None
+)
 
-# Add CORS middleware to allow React frontend to connect
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Adjust this to your React frontend URL
+    allow_origins=settings.ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+# Initialize database on startup
+@app.on_event("startup")
+def on_startup():
+    init_db()
 
+# Health check endpoint
+@app.get("/health")
+def health_check():
+    return {"status": "healthy", "environment": settings.ENVIRONMENT}
+
+# Product endpoints
 @app.get("/products/", response_model=List[Product])
 def read_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    products = get_products(db, skip=skip, limit=limit)
-    return products
+    return get_products(db, skip=skip, limit=limit)
 
 @app.get("/products/{product_id}", response_model=Product)
 def read_product(product_id: int, db: Session = Depends(get_db)):
-    product = get_product(db, product_id=product_id)
-    if product is None:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return product
+    return get_product(db, product_id=product_id)
 
 @app.post("/products/", response_model=Product)
 def create_new_product(product: ProductCreate, db: Session = Depends(get_db)):
     return create_product(db=db, product=product)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=settings.ENVIRONMENT != "production"
+    )

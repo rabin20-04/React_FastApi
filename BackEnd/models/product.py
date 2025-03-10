@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float  # type: ignore
+from sqlalchemy import Column, Integer, String, Float
 from database.database import Base
 
 class Product(Base):
@@ -11,3 +11,6 @@ class Product(Base):
     price = Column(Float)
     type = Column(String)  # clothing or footwear
     image_url = Column(String)
+
+    def __repr__(self):
+        return f"<Product(title='{self.title}', price={self.price})>"

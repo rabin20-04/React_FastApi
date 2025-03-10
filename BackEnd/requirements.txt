@@ -5,3 +5,5 @@ pydantic
 sqlmodel
 passlib
 bcrypt
+python-dotenv
+pydantic_settings
