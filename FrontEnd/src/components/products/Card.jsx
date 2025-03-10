@@ -3,7 +3,7 @@ import white1 from "../../assets/img/white1.png";
 import React from "react";
 
 const ProductsCard = (props) => {
-  // here data comes in props we can further destructure for better reading by const ProductsCard = ({name,rand,category,etc}) => { then return etc
+ 
 
   return (
     <>
