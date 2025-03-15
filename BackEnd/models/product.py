@@ -5,12 +5,10 @@ class Product(Base):
     __tablename__ = "products"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
-    name = Column(String, index=True)
-    description = Column(String)
-    price = Column(Float)
-    type = Column(String)  # clothing or footwear
-    image_url = Column(String)
-
-    def __repr__(self):
-        return f"<Product(title='{self.title}', price={self.price})>"
+    title = Column(String, index=True, nullable=False)
+    name = Column(String, index=True, nullable=False)
+    description = Column(String, nullable=True)
+    price = Column(Float, nullable=False)
+    type = Column(String, nullable=False)  # "clothing" or "footwear"
+    image_url = Column(String, nullable=True)
+    category = Column(String, default="Clothes", nullable=False)  # Ensure non-null default

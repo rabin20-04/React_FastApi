@@ -1,19 +1,14 @@
-from pydantic import BaseModel, validator
-from typing import Literal
+from pydantic import BaseModel
+from typing import Optional
 
 class ProductBase(BaseModel):
     title: str
     name: str
-    description: str
+    description: Optional[str] = None
     price: float
-    type: Literal["clothing", "footwear"]  # Restrict to specific types
-    image_url: str
-
-    @validator('price')
-    def price_must_be_positive(cls, v):
-        if v <= 0:
-            raise ValueError('Price must be positive')
-        return v
+    type: str  # Example: "clothing" or "footwear"
+    image_url: Optional[str] = None
+    category: str = "Clothes"  # Default category
 
 class ProductCreate(ProductBase):
     pass
@@ -22,4 +17,4 @@ class Product(ProductBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True  # Pydantic v2 (For v1, use `orm_mode = True`)

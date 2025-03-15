@@ -1,15 +1,12 @@
+// src/pages/Products.jsx
 import React from "react";
-import Navbar from "../components/Navbar";
 import List from "../products/list";
 
-const Products = () => {
+const Products = ({ category = "Clothes" }) => {
   return (
-    <><div className="h-[100vh]">
-      <List />
-      </div>
-      {/* <Navbar /> because added to main layout  */}
-      {/* <div>This is from Products</div> */}
-    </>
+    <div className="h-[100vh]">
+      <List category={category} />
+    </div>
   );
 };
 

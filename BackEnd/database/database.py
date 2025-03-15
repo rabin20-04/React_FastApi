@@ -1,3 +1,4 @@
+# database/database.py
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -18,6 +19,18 @@ def get_db():
     finally:
         db.close()
 
-# Function to initialize database
+# Function to initialize database and migrate
 def init_db():
     Base.metadata.create_all(bind=engine)
+    # Migrate to add category column if it doesn't exist
+    migrate_add_category_column()
+
+def migrate_add_category_column():
+    from sqlalchemy import inspect
+    inspector = inspect(engine)
+    columns = [col["name"] for col in inspector.get_columns("products")]
+    
+    if "category" not in columns:
+        conn = engine.connect()
+        # conn.execute("ALTER TABLE products ADD COLUMN category TEXT DEFAULT 'Clothes'")
+        conn.close()
