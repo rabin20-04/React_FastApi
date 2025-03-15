@@ -81,7 +81,7 @@ const ProductDetails = () => {
                   : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam dolorem quas dolores inventore aliquam veniam laudantium optio itaque, consequuntur, at aperiam nesciunt nemo, a mollitia corporis? Molestias porro deleniti praesentium repudiandae similique dolorum, amet consequuntur nobis reprehenderit maxime, veniam earum?"}
               </p>
               <p>
-                <h1 className="font-bold text-xl mb-2">{product.type}</h1>
+                <h1 className="font-bold text-xl mb-2 capitalize">{product.type}</h1>
                 <span className="text-2xl mt-2 pe-1">
                   {product.price ? Math.floor(product.price * 0.8) : "N/A"}
                 </span>
