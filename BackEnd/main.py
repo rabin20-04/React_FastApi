@@ -39,7 +39,11 @@ def read_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 
 @app.get("/products/{product_id}", response_model=Product)
 def read_product(product_id: int, db: Session = Depends(get_db)):
-    return get_product(db, product_id=product_id)
+    product = get_product(db, product_id=product_id)
+    if product is None:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return product
+
 
 @app.post("/products/", response_model=Product)
 def create_new_product(product: ProductCreate, db: Session = Depends(get_db)):

@@ -4,9 +4,9 @@ import List from "../products/list";
 
 const Products = () => {
   return (
-    <>
+    <><div className="h-[100vh]">
       <List />
-      
+      </div>
       {/* <Navbar /> because added to main layout  */}
       {/* <div>This is from Products</div> */}
     </>
