@@ -52,7 +52,7 @@ const List = ({ category = "Clothes" }) => {
   }
 
   return (
-    <section className="py-12 bg-gray-100">
+    <section className="py-8 bg-gray-100 ">
       <div className="container mx-auto px-4">
         <div className="flex justify-center gap-4 mb-6">
           <button

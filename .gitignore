@@ -1,4 +1,4 @@
 __pycache__
 .DS_Store
 backend_venv
-.env
+.env.env

@@ -12,7 +12,7 @@ const ProductsCard = ({ id, title, name, price, image_url, category }) => {
   return (
     <Link
       to={productLink}
-      className="block border shadow my-4 py-6 px-6 rounded-xl relative bg-white hover:shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
+      className="block border shadow my-4 pt-2 pb-4 px-6 rounded-xl relative bg-white hover:shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
     >
       <span className="text-xs text-white bg-red-600 rounded-xl px-2 py-1 absolute top-2 right-4">
         {category}
@@ -22,17 +22,17 @@ const ProductsCard = ({ id, title, name, price, image_url, category }) => {
           <img
             src={image_url ?? white4}
             alt={name || "Product Image"}
-            className="w-full h-48 object-contain rounded-md bg-white transition-transform duration-300 ease-in-out hover:scale-105"
+            className="h-80 mx-auto w-auto bg-white"
           />
         </div>
       </div>
-      <div className="text-center py-4">
-        <h2 className="text-xl font-semibold mb-2">{name}</h2>
-        <p className="flex justify-center items-center gap-2 mb-2">
-          <span className="font-bold text-xl">${Math.floor(price * 0.8)}</span>
-          <span className="line-through text-slate-500 text-sm">${price}</span>
+      <div className="">
+        <h2 className="mt-3 pb-2 text-xl font-semibold">{name}</h2>
+        <p className="">
+          <span className="font-bold text-xl pe-1">${Math.floor(price * 0.8)}</span>
+          <span className="line-through text-slate-500 text-sm ">${price}</span>
         </p>
-        <button className="bg-red-700 px-4 py-2 text-white rounded hover:bg-red-800">
+        <button className="bg-red-700 px-2 py-1 text-white rounded hover:bg-red-800 ">
           Buy Now
         </button>
       </div>

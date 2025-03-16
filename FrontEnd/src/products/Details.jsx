@@ -1,13 +1,11 @@
-// src/products/details.jsx
 import React, { useEffect, useState } from "react";
 import white1 from "../../src/assets/img/white1.png";
 import white4 from "../../src/assets/img/white4.png";
-// import white4 from "../../src/assets/img/iphone15.png";
 import { FaCartPlus, FaStar, FaStarHalf } from "react-icons/fa";
 import { useParams, useLocation } from "react-router-dom";
 import Title from "../components/Title";
 import { getProductsById, getElectronicsById } from "../api/product";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductDetails = () => {
@@ -17,11 +15,15 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
 
-  const isElectronicsRoute = location.pathname.startsWith("/products/electronics");
+  const isElectronicsRoute = location.pathname.startsWith(
+    "/products/electronics"
+  );
 
   useEffect(() => {
     setLoading(true);
-    const fetchFunction = isElectronicsRoute ? getElectronicsById : getProductsById;
+    const fetchFunction = isElectronicsRoute
+      ? getElectronicsById
+      : getProductsById;
     fetchFunction(id)
       .then((response) => {
         setProduct(response.data || null);
@@ -67,55 +69,71 @@ const ProductDetails = () => {
   };
 
   return (
-    <section className="py-12 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <div className="flex gap-6 flex-col lg:flex-row justify-around items-center">
-          <div className="h-[70vh] w-auto flex justify-center items-center overflow-hidden bg-white">
-            <img
-              src={product.image_url ?? white4}
-              alt={product.title || "Product Image"}
-              className="w-full h-96 object-contain bg-white transition-transform duration-300 ease-in-out hover:scale-105"
-            />
-          </div>
-
-          <div className="w-full lg:w-1/2">
-            <div className="flex mt-2 text-orange-500">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStarHalf />
+    <>
+      <section className="py-24 bg-gray-100 h-screen overflow-auto  ">
+        <div className="container mx-auto px-4 ">
+          <div className="flex gap-4 flex-col  lg:flex-row lg:justify-around items-center">
+            {/* Product Image */}
+            <div className="w-full lg:w-1/2">
+              <img
+                src={product.image_url ?? white4}
+                alt={product.title || "Product Image"}
+                className="w-full h-auto max-h-[500px] object-contain"
+              />
             </div>
-            <p className="pt-2">
-              <Title label={product.title} />
-            </p>
-            <p className="text-justify py-2">
-              {product.description && product.description.trim() !== "" ? (
-                product.description
-              ) : (
-                "Stay warm and trendy with this versatile jacket, perfect for any occasion. Made with high-quality, breathable fabric, it ensures all-day comfort while keeping you protected from the elements. Its modern design features sleek lines and a tailored fit, making it an ideal choice for urban explorers and outdoor enthusiasts alike. Add this timeless piece to your wardrobe and make a statement wherever you go!"
-              )}
-            </p>
-            <p>
-              <h1 className="font-bold text-xl mb-2 capitalize">{product.type}</h1>
-              <span className="text-2xl pe-1">
+
+            {/* Product Details */}
+            <div className="w-full lg:w-1/2">
+              <div className="flex mt-2 text-orange-500">
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStarHalf />
+              </div>
+              <p className="pt-2">
+                <Title label={product.title || "Classic Blue Denim Jacket"} />
+              </p>
+              <p className="text-justify py-2">
+                {product.description && product.description.trim() !== ""
+                  ? product.description
+                  : "Stay warm and trendy with this versatile jacket, perfect for any occasion. Made with high-quality, breathable fabric, it ensures all-day comfort while keeping you protected from the elements. Its modern design features sleek lines and a tailored fit, making it an ideal choice for urban explorers and outdoor enthusiasts alike. Add this timeless piece to your wardrobe and make a statement wherever you go!"}
+              </p>
+              <h1 className="font-bold text-xl mb-2 capitalize text-blue-700">
+                {product.type || "Classic Jacket"}
+              </h1>
+
+              <span className="text-2xl mt-1 pe-1">
                 {product.price ? Math.floor(product.price * 0.8) : "N/A"}
               </span>
-              <span className="line-through text-slate-500 text-sm">
+              <span className="line-through text-slate-500 text-sm ">
                 {product.price ?? "N/A"}
               </span>
-            </p>
-            <button
-              className="bg-red-700 px-4 py-2 gap-2 text-white rounded hover:bg-red-800 flex items-center"
-              onClick={handleAddToCart}
-            >
-              Add to cart
-              <FaCartPlus />
-            </button>
+
+              <button
+                className="bg-teal-700 px-2 py-1 gap-2 text-white rounded hover:bg-green-900 flex items-center mt-2"
+                onClick={handleAddToCart}
+              >
+                Add to cart
+                <FaCartPlus />
+              </button>
+              <p className="text-xs p-2 text-gray-500">
+                Enjoy 20% discount on new arrivals
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="light"
+      />
+    </>
   );
 };
 
