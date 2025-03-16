@@ -16,7 +16,7 @@
 // export { getProducts ,getProductsById };
 // src/api/product.js
 import axios from "axios";
-import Config from "../config/config"; // Adjust path based on your structure
+import Config from "../config/config";
 
 const apiClient = axios.create({
   baseURL: Config.baseApiUrl,
@@ -61,6 +61,17 @@ export const getElectronicsById = async (id) => {
     const response = await apiClient.get(`/products/electronics/${id}`);
     return response;
   } catch (error) {
+    throw error;
+  }
+};
+
+// Get all new arrivals
+export const getNewArrivals = async () => {
+  try {
+    const response = await apiClient.get("/products?new=true"); // Try query parameter
+    return response;
+  } catch (error) {
+    console.error("Error fetching new arrivals:", error.response?.data || error.message);
     throw error;
   }
 };
