@@ -9,7 +9,7 @@ import { GiSpikedDragonHead } from "react-icons/gi";const Navbar = () => {
   const [isMobileMenuHidden, setIsMobileMenuHidden] = useState(true);
   return (
     <>
-      <nav className="bg-amber-50 border-gray-200 border z-50 relative sticky top-0 z-50">
+      <nav className="bg-amber-50 border-gray-200 border z-50 relative  top-0 ">
         <div className=" text-violet-800 max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
           <div className="flex items-center gap-3 ">
           <Link to={"/"}> <span className="text-3xl ">
