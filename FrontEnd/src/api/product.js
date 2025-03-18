@@ -47,6 +47,25 @@ export const getElectronicsById = async (id) => {
     throw error;
   }
 };
+// Get all electronics
+export const getClothes = async () => {
+  try {
+    const response = await apiClient.get("/products/clothes/");
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get electronic product by ID
+export const getClothesById = async (id) => {
+  try {
+    const response = await apiClient.get(`/products/clothes/${id}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // Get all new arrivals
 export const getNewArrivals = async () => {
@@ -61,6 +80,7 @@ export const getNewArrivals = async () => {
     throw error;
   }
 };
+
 
 ////---------------
 // import axios from "axios";

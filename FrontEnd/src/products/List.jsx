@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Title from "../components/Title";
 import ProductsCard from "../components/products/Card";
-import { getProducts, getElectronics, getNewArrivals } from "../api/product";
+import { getProducts, getElectronics, getNewArrivals,getClothes } from "../api/product";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const List = ({ category = "New Arrivals" }) => {
@@ -27,11 +27,11 @@ const List = ({ category = "New Arrivals" }) => {
         console.log("Fetching products for category:", selectedCategory);
         let fetchFunction;
         if (selectedCategory === "Clothes") {
-          fetchFunction = getProducts;
+          fetchFunction = getClothes;
         } else if (selectedCategory === "Electronics") {
           fetchFunction = getElectronics;
         } else if (selectedCategory === "New Arrivals") {
-          fetchFunction = getNewArrivals;
+          fetchFunction = getProducts;
         }
         const response = await fetchFunction();
         console.log("API Response:", response.data);
@@ -60,7 +60,7 @@ const List = ({ category = "New Arrivals" }) => {
         ? "/products/clothes"
         : newCategory === "Electronics"
         ? "/products/electronics"
-        : "/products/new-arrivals"
+        : "/products/"
     );
   };
 

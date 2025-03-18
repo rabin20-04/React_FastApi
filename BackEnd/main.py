@@ -11,6 +11,8 @@ from crud.product import (
     create_product,
     get_electronics,
     get_electronic_by_id,
+    get_clothes,
+    get_clothes_by_id,
 )
 
 app = FastAPI(
@@ -66,6 +68,18 @@ def read_electronic(product_id: int, db: Session = Depends(get_db)):
     product = get_electronic_by_id(db, product_id=product_id)
     if product is None:
         raise HTTPException(status_code=404, detail="Electronic product not found")
+    return product
+
+@app.get("/products/clothes/", response_model=List[Product])
+def read_clothes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return get_clothes(db, skip=skip, limit=limit)
+
+
+@app.get("/products/clothes/{product_id}", response_model=Product)
+def read_clothe(product_id: int, db: Session = Depends(get_db)):
+    product = get_clothes_by_id(db, product_id=product_id)
+    if product is None:
+        raise HTTPException(status_code=404, detail="Clothes product not found")
     return product
 
 
