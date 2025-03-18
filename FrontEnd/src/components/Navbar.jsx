@@ -3,14 +3,16 @@ import { Link, NavLink } from "react-router-dom";
 import { SiKasasmart } from "react-icons/si";
 import { GiSpikedDragonHead } from "react-icons/gi";const Navbar = () => {
   const navLinkClass = ({ isActive }) =>
-    isActive
-      ? "block py-2 px-3 text-blue  md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-      : "text-green";
+    `relative block py-2 px-3 md:p-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-blue-700 after:scale-x-0 after:transition-transform after:origin-left hover:after:scale-x-100 ${
+      isActive
+        ? "text-blue md:text-blue-700 md:dark:text-blue-500"
+        : "text-green text-gray-900"
+    }`;
   const [isMobileMenuHidden, setIsMobileMenuHidden] = useState(true);
   return (
     <>
       <nav className="bg-amber-50 border-gray-200 border z-50 relative  top-0 ">
-        <div className=" text-violet-800 max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
+        <div className=" text-violet-800 max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4  ">
           <div className="flex items-center gap-3 ">
           <Link to={"/"}> <span className="text-3xl ">
           <GiSpikedDragonHead /></span>
@@ -40,7 +42,7 @@ import { GiSpikedDragonHead } from "react-icons/gi";const Navbar = () => {
                 alt="user photo"
               />
             </button>
-            <div
+            {/* <div
               className={`z-2   my-5 mt-15  text-base list-none absolute top-7 right-10 bg-white divide-y divide-gray-100 rounded-lg shadow-sm ${
                 isMobileMenuHidden ? "hidden " : ""
               }`}
@@ -81,7 +83,7 @@ import { GiSpikedDragonHead } from "react-icons/gi";const Navbar = () => {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
             <button
               data-collapse-toggle="navbar-user"
               type="button"
@@ -111,7 +113,7 @@ import { GiSpikedDragonHead } from "react-icons/gi";const Navbar = () => {
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
             id="navbar-user"
           >
-            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700 active text-gray-900">
+            <ul className="flex flex-col font-medium p-4  md:p-0 mt-4  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700 active text-gray-900">
               <li>
                 <NavLink to="/" className={navLinkClass}>
                   Home

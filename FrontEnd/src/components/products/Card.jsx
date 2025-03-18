@@ -7,7 +7,11 @@ import React from "react";
 
 const ProductsCard = ({ id, title, name, price, image_url, category }) => {
   const productLink =
-    category === "Electronics" ? `/products/electronics/${id}` : `/products/${id}`;
+    category === "Electronics"
+      ? `/products/electronics/${id}`
+      : "Clothes"
+      ? `/products/clothes/${id}`
+      : `/products/${id}`;
 
   return (
     <Link
@@ -29,7 +33,9 @@ const ProductsCard = ({ id, title, name, price, image_url, category }) => {
       <div className="">
         <h2 className="mt-3 pb-2 text-xl font-semibold">{name}</h2>
         <p className="">
-          <span className="font-bold text-xl pe-1">${Math.floor(price * 0.8)}</span>
+          <span className="font-bold text-xl pe-1">
+            ${Math.floor(price * 0.8)}
+          </span>
           <span className="line-through text-slate-500 text-sm ">${price}</span>
         </p>
         <button className="bg-red-700 px-2 py-1 text-white rounded hover:bg-red-800 ">
