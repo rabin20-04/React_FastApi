@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     APP_NAME: str = "EcommerceAPI"
     ENVIRONMENT: str = "development"
     DATABASE_URL: str = "sqlite:///./ecommerce.db"
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000"]
+    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000"] 
     SECRET_KEY: str = "default-secret-key-for-dev"
 
     @validator("ALLOWED_ORIGINS", pre=True)

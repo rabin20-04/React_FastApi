@@ -60,7 +60,7 @@ const List = ({ category = "New Arrivals" }) => {
         ? "/products/clothes"
         : newCategory === "Electronics"
         ? "/products/electronics"
-        : "/products/"
+        : "/products"
     );
   };
 
