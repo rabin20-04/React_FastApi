@@ -1,4 +1,3 @@
-# main.py
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
@@ -6,15 +5,20 @@ from fastapi.middleware.cors import CORSMiddleware
 from config.config import settings
 from database.database import get_db, init_db
 from schemas.product import Product, ProductCreate
-from crud.product import get_products, get_product, create_product, get_electronics, get_electronic_by_id
+from crud.product import (
+    get_products,
+    get_product,
+    create_product,
+    get_electronics,
+    get_electronic_by_id,
+)
 
 app = FastAPI(
     title=settings.APP_NAME,
     docs_url="/docs" if settings.ENVIRONMENT != "production" else None,
-    redoc_url=None
+    redoc_url=None,
 )
 
-# Configure CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
@@ -23,20 +27,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize database on startup
+
 @app.on_event("startup")
 def on_startup():
     init_db()
 
-# Health check endpoint
+
 @app.get("/health")
 def health_check():
     return {"status": "healthy", "environment": settings.ENVIRONMENT}
 
-# Product endpoints
+
 @app.get("/products/", response_model=List[Product])
 def read_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return get_products(db, skip=skip, limit=limit)
+
 
 @app.get("/products/{product_id}", response_model=Product)
 def read_product(product_id: int, db: Session = Depends(get_db)):
@@ -45,14 +50,16 @@ def read_product(product_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Product not found")
     return product
 
+
 @app.post("/products/", response_model=Product)
 def create_new_product(product: ProductCreate, db: Session = Depends(get_db)):
     return create_product(db=db, product=product)
 
-# Electronics endpoints
+
 @app.get("/products/electronics/", response_model=List[Product])
 def read_electronics(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return get_electronics(db, skip=skip, limit=limit)
+
 
 @app.get("/products/electronics/{product_id}", response_model=Product)
 def read_electronic(product_id: int, db: Session = Depends(get_db)):
@@ -61,11 +68,13 @@ def read_electronic(product_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Electronic product not found")
     return product
 
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
         port=8000,
-        reload=settings.ENVIRONMENT != "production"
+        reload=settings.ENVIRONMENT != "production",
     )

@@ -24,13 +24,13 @@ const Routes = () => {
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register />} />
         <Route path="/products">
-          <Route index element={<List category="New Arrivals" />} /> {/* Changed to New Arrivals */}
+          <Route index element={<List category="New Arrivals" />} /> 
           <Route path=":id" element={<ProductDetails />} />
           <Route path="electronics">
             <Route index element={<List category="Electronics" />} />
             <Route path=":id" element={<ProductDetails />} />
           </Route>
-          <Route path="clothes"> {/* Added explicit 'clothes' path for clarity */}
+          <Route path="clothes"> 
             <Route index element={<List category="Clothes" />} />
             <Route path=":id" element={<ProductDetails />} />
           </Route>
@@ -46,6 +46,3 @@ const Routes = () => {
 };
 
 export default Routes;
-
-// or create a js file with route.js and write const HOME_ROUTE= "/" and const ABOUT_ROUTE="/about" then export multiple with export{HOME_ROUTE,ABOUT_ROUTE}
-// then  to use js variable use {}            <Route path={ABOUT_ROUTE} element={<About />} />

@@ -1,20 +1,3 @@
-// import axios from "axios";
-// import config from "../config/config";
-
-// const baseApiUrl = "https://node-20240823.vercel.app";
-
-// const getProducts = async () => {
-//   const response = await axios.get(`${baseApiUrl}/api/products`);
-
-//   return response;
-// };
-// const getProductsById = async (id) => {
-//   const response = await axios.get(`${baseApiUrl}/api/products/${id}`);
-
-//   return response;
-// };
-// export { getProducts ,getProductsById };
-// src/api/product.js
 import axios from "axios";
 import Config from "../config/config";
 
@@ -68,10 +51,32 @@ export const getElectronicsById = async (id) => {
 // Get all new arrivals
 export const getNewArrivals = async () => {
   try {
-    const response = await apiClient.get("/products?new=true"); // Try query parameter
+    const response = await apiClient.get("/products?new=true"); 
     return response;
   } catch (error) {
-    console.error("Error fetching new arrivals:", error.response?.data || error.message);
+    console.error(
+      "Error fetching new arrivals:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
+
+////---------------
+// import axios from "axios";
+// import config from "../config/config";
+
+// const baseApiUrl = "https://node-20240823.vercel.app";
+
+// const getProducts = async () => {
+//   const response = await axios.get(`${baseApiUrl}/api/products`);
+
+//   return response;
+// };
+// const getProductsById = async (id) => {
+//   const response = await axios.get(`${baseApiUrl}/api/products/${id}`);
+
+//   return response;
+// };
+// export { getProducts ,getProductsById };
+// src/api/product.js

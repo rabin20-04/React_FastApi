@@ -9,6 +9,6 @@ class Product(Base):
     name = Column(String, index=True, nullable=False)
     description = Column(String, nullable=True)
     price = Column(Float, nullable=False)
-    type = Column(String, nullable=False)  # "clothing" or "footwear"
+    type = Column(String, nullable=False) 
     image_url = Column(String, nullable=True)
-    category = Column(String, default="Clothes", nullable=False)  # Ensure non-null default
+    category = Column(String, default="Clothes", nullable=False) 

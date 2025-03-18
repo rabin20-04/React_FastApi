@@ -11,7 +11,6 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -19,10 +18,8 @@ def get_db():
     finally:
         db.close()
 
-# Function to initialize database and migrate
 def init_db():
     Base.metadata.create_all(bind=engine)
-    # Migrate to add category column if it doesn't exist
     migrate_add_category_column()
 
 def migrate_add_category_column():
@@ -32,5 +29,4 @@ def migrate_add_category_column():
     
     if "category" not in columns:
         conn = engine.connect()
-        # conn.execute("ALTER TABLE products ADD COLUMN category TEXT DEFAULT 'Clothes'")
         conn.close()

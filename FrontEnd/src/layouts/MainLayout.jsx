@@ -5,9 +5,8 @@ import { Outlet } from "react-router-dom";
 const MainLayout = () => {
   return (
     <>
-      <Navbar /> {/*fixed for all pages*/}
+      <Navbar /> 
       <Outlet /> 
-      {/* to display content of current page ie content of about page in routes childrens along with Navbar  */}
     </>
   );
 };
