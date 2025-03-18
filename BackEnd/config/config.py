@@ -1,6 +1,6 @@
 from pydantic_settings import BaseSettings
-from typing import List
 from pydantic import validator
+from typing import List
 from dotenv import load_dotenv
 import os
 
@@ -8,11 +8,11 @@ import os
 load_dotenv()
 
 class Settings(BaseSettings):
-    APP_NAME: str = "EcommerceAPI"
+    APP_NAME: str = "MyApp"
     ENVIRONMENT: str = "development"
-    DATABASE_URL: str = "sqlite:///./ecommerce.db"
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000"] 
-    SECRET_KEY: str = "default-secret-key-for-dev"
+    DATABASE_URL: str = "sqlite:///./test.db"
+    ALLOWED_ORIGINS: List[str] = ["*"]
+    SECRET_KEY: str = "defaultsecretkey"
 
     @validator("ALLOWED_ORIGINS", pre=True)
     def parse_allowed_origins(cls, v):
@@ -29,8 +29,11 @@ class Settings(BaseSettings):
         return v
 
     class Config:
-        env_file = ".env"
+        env_file = ".env"  # This will look for the .env file in the root directory
         env_file_encoding = "utf-8"
 
+# Create an instance of the Settings class to load and parse values
 settings = Settings()
+
+# For debugging purposes, print all the settings
 print(f"Debug: Final settings: {settings.dict()}")
