@@ -1,6 +1,6 @@
 // src/pages/Products.jsx
 import React from "react";
-import List from "../products/list";
+import List from "../products/List";
 
 const Products = ({ category = "Clothes" }) => {
   return (

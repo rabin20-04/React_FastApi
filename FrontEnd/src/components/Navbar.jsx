@@ -118,18 +118,23 @@ import { GiSpikedDragonHead } from "react-icons/gi";const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/about" className={navLinkClass}>
-                  About
-                </NavLink>
-              </li>
-              <li>
                 <NavLink to="/contact" className={navLinkClass}>
                   Contact
                 </NavLink>
               </li>
+             
               <li>
                 <NavLink to="/products" className={navLinkClass}>
                   Product
+                </NavLink>
+              </li> <li>
+                <NavLink to="/auth/login" className={navLinkClass}>
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/auth/register" className={navLinkClass}>
+                  Register
                 </NavLink>
               </li>
               <li></li>

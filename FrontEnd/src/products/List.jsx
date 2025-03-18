@@ -38,8 +38,14 @@ const List = ({ category = "New Arrivals" }) => {
         setProductList(response.data || []);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching products:", error.response?.data || error.message);
-        setError(error.response?.data?.message || "Failed to load products. Please try again.");
+        console.error(
+          "Error fetching products:",
+          error.response?.data || error.message
+        );
+        setError(
+          error.response?.data?.message ||
+            "Failed to load products. Please try again."
+        );
         setLoading(false);
       }
     };
@@ -79,6 +85,16 @@ const List = ({ category = "New Arrivals" }) => {
       <div className="container mx-auto px-4">
         <div className="flex justify-center gap-4 mb-6">
           <button
+            onClick={() => handleCategoryChange("New Arrivals")}
+            className={`px-4 py-2 rounded-lg font-semibold ${
+              selectedCategory === "New Arrivals"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-200 text-gray-700"
+            }`}
+          >
+            New Arrivals
+          </button>
+          <button
             onClick={() => handleCategoryChange("Clothes")}
             className={`px-4 py-2 rounded-lg font-semibold ${
               selectedCategory === "Clothes"
@@ -98,19 +114,9 @@ const List = ({ category = "New Arrivals" }) => {
           >
             Electronics
           </button>
-          <button
-            onClick={() => handleCategoryChange("New Arrivals")}
-            className={`px-4 py-2 rounded-lg font-semibold ${
-              selectedCategory === "New Arrivals"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            New Arrivals
-          </button>
         </div>
 
-        <Title
+        {/* <Title
           label={
             selectedCategory === "Clothes"
               ? "Clothes"
@@ -118,7 +124,7 @@ const List = ({ category = "New Arrivals" }) => {
               ? "Electronics"
               : "New Arrivals"
           }
-        />
+        /> */}
         <div className="py-4">
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {productList.length > 0 ? (
