@@ -11,7 +11,7 @@ import Contact from "./pages/Contact";
 import List from "./products/List";  
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import ProductDetails from "./products/details";
+import ProductDetails from "./products/Details";
 import MainLayout from "./layouts/MainLayout";
 
 const Routes = () => {
