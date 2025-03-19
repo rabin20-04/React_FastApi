@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Title from "../components/Title";
 import ProductsCard from "../components/products/Card";
-import { getProducts, getElectronics, getNewArrivals,getClothes } from "../api/product";
+import {
+  getProducts,
+  getElectronics,
+  getNewArrivals,
+  getClothes,
+} from "../api/product";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const List = ({ category = "New Arrivals" }) => {
@@ -66,9 +71,17 @@ const List = ({ category = "New Arrivals" }) => {
 
   if (loading) {
     return (
-      <div className="flex font-bold justify-center items-center h-screen w-screen">
-        <i className="fa-solid fa-spinner fa-spin-pulse text-blue-500 text-6xl"></i>
-      </div>
+      <>
+        {" "}
+        <div className="flex justify-center items-center mt-10">
+          <p className="text-red-500 font-semibold text-lg bg-yellow-100 p-3 rounded-lg shadow-md">
+            Sometimes the server may respond slowly. Please reload.
+          </p>
+        </div>
+        <div className="flex font-bold justify-center items-center h-screen w-screen">
+          <i className="fa-solid fa-spinner fa-spin-pulse text-blue-500 text-6xl"></i>
+        </div>
+      </>
     );
   }
 
