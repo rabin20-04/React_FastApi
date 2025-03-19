@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Title from "../components/Title";
 import ProductsCard from "../components/products/Card";
-import { getProducts, getElectronics, getNewArrivals,getClothes } from "../api/product";
+import { getProducts, getElectronics, getNewArrivals, getClothes } from "../api/product";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const List = ({ category = "New Arrivals" }) => {
   const [loading, setLoading] = useState(true);
-  const [productList, setProductList] = useState("new-arrivals");
+  const [productList, setProductList] = useState([]);
   const [error, setError] = useState(null);
+  const [isDelayedLoading, setIsDelayedLoading] = useState(false); 
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -33,19 +34,20 @@ const List = ({ category = "New Arrivals" }) => {
         } else if (selectedCategory === "New Arrivals") {
           fetchFunction = getProducts;
         }
+
+        setIsDelayedLoading(false); 
         const response = await fetchFunction();
+
+        setTimeout(() => {
+          setIsDelayedLoading(true); 
+        }, 8000); 
+
         console.log("API Response:", response.data);
         setProductList(response.data || []);
         setLoading(false);
       } catch (error) {
-        console.error(
-          "Error fetching products:",
-          error.response?.data || error.message
-        );
-        setError(
-          error.response?.data?.message ||
-            "Failed to load products. Please try again."
-        );
+        console.error("Error fetching products:", error.response?.data || error.message);
+        setError(error.response?.data?.message || "Failed to load products. Please try again.");
         setLoading(false);
       }
     };
@@ -64,7 +66,7 @@ const List = ({ category = "New Arrivals" }) => {
     );
   };
 
-  if (loading) {
+  if (loading && !isDelayedLoading) {
     return (
       <div className="flex font-bold justify-center items-center h-screen w-screen">
         <i className="fa-solid fa-spinner fa-spin-pulse text-blue-500 text-6xl"></i>
@@ -116,15 +118,13 @@ const List = ({ category = "New Arrivals" }) => {
           </button>
         </div>
 
-        {/* <Title
-          label={
-            selectedCategory === "Clothes"
-              ? "Clothes"
-              : selectedCategory === "Electronics"
-              ? "Electronics"
-              : "New Arrivals"
-          }
-        /> */}
+        {isDelayedLoading && (
+          <div className="flex justify-center items-center py-6 text-blue-500">
+            <i className="fa-solid fa-sync-alt fa-spin text-xl"></i>
+            <span className="ml-2">Loading is taking longer than usual...</span>
+          </div>
+        )}
+
         <div className="py-4">
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {productList.length > 0 ? (
