@@ -10,7 +10,7 @@ const Home = () => {
       <div
         className="h-screen w-screen bg-no-repeat bg-cover bg-center fixed"
         style={{
-          backgroundImage: `url(${backimg})`,
+          backgroundImage: `url("https://res.cloudinary.com/dz4tg6vyg/image/upload/v1742380953/clothing-3_pcwq8j.jpg")`,
         }}
       >
         <div className="hero-overlay bg-opacity-100 "></div>
