@@ -35,20 +35,23 @@ const List = ({ category = "New Arrivals" }) => {
           fetchFunction = getProducts;
         }
 
-        setIsDelayedLoading(false); 
-        const response = await fetchFunction();
-
-        setTimeout(() => {
+        const timer = setTimeout(() => {
           setIsDelayedLoading(true); 
         }, 8000); 
+
+        const response = await fetchFunction();
+        
+        clearTimeout(timer);
 
         console.log("API Response:", response.data);
         setProductList(response.data || []);
         setLoading(false);
+        setIsDelayedLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error.response?.data || error.message);
         setError(error.response?.data?.message || "Failed to load products. Please try again.");
         setLoading(false);
+        setIsDelayedLoading(false);
       }
     };
 
