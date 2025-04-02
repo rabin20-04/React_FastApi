@@ -39,7 +39,7 @@ const List = ({ category = "New Arrivals" }) => {
           fetchFunction = getProducts;
         }
         const response = await fetchFunction();
-        console.log("API Response:", response.data);
+        // console.log("API Response:", response.data);
         setProductList(response.data || []);
         setLoading(false);
       } catch (error) {
